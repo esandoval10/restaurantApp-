@@ -88,6 +88,6 @@ app.get("/api/waitlist", function(req, res){
   return res.json(waitlist);
 })
 
-app.listen(port, function(){
-  console.log("Listening on port " + port);
+app.listen(PORT, function(){
+  console.log("Listening on port " + PORT);
 })
