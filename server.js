@@ -16,7 +16,13 @@ app.use(bodyParser.json());
 // Reservations (DATA)
 // =============================================================
 var reservations = [
+  {
+    "customerName": "Rusty Shackleford",
+    "customerEmail": "rustyshack@gmail.com",
+    "customerID": "rustyshack",
+    "phoneNumber": "123-456-7891"
 
+  }
 ];
 
 var waitingList = [
@@ -39,53 +45,23 @@ app.get("/view", function(req, res){
     res.sendFile(path.join(__dirname, "view.html"));
   })
   
-  // Displays all characters
-  app.get("/api/characters", function(req, res) {
-    return res.json(characters);
-  });
-  
-  // Displays a single character, or returns false
-  app.get("/api/characters/:character", function(req, res) {
-    var chosen = req.params.character;
-  
-    console.log(chosen);
-  
-    for (var i = 0; i < characters.length; i++) {
-      if (chosen === characters[i].routeName) {
-        return res.json(characters[i]);
-      }
-    }
-  
-    return res.json(false);
-  });
-  
-
-
-
-
-
-
-
-
-app.post("/api/reservations", function(req, res){
+app.post("/api/reserve", function(req, res){
   var newReservation = req.body;
   if(reservations.length <= 5) {
-    alert("You've been added to the reservation list")
     reservations.push(newReservation)
-    res.json(newReservation);
+    res.json(true);
   } else {
-    alert("You've been added to the wait list");
-    waitlist.push(newReservation);
+    waitingList.push(newReservation);
+    res.json(false);
   }
 })
 
-app.get("/api/reservations", function(req, res){
+app.get("/api/tables", function(req, res){
   return res.json(reservations);
-
 })
 
 app.get("/api/waitlist", function(req, res){
-  return res.json(waitlist);
+  return res.json(waitingList);
 })
 
 app.listen(PORT, function(){
