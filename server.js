@@ -46,13 +46,16 @@ app.get("/view", function(req, res){
   })
   
 app.post("/api/reserve", function(req, res){
+  var jsonArr = [];
   var newReservation = req.body;
   if(reservations.length <= 5) {
     reservations.push(newReservation)
-    res.json(true);
+    var message = {message: "You've been added to the reservations list."}
+    res.json(message);
   } else {
     waitingList.push(newReservation);
-    res.json(false);
+    var message = {message: "You've been added to the waiting list."}
+    res.json(message);
   }
 })
 
